@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}
+Commander AI Deckbuilder
+{% endblock %}
+
+{% block content %}
+<header>
+    <h1>Commander AI Deckbuilder</h1>
+    <p>
+        Describe the kind of Commander deck you want to build, and get
+        commander ideas, card packages, and sample deck suggestions.
+    </p>
+</header>
+
+<main>
+    <section>
+        <h2>Start with a deck idea</h2>
+
+        <form method="post" action="#">
+            {% csrf_token %}
+
+            <label for="deck-idea">What do you want to build?</label>
+            <br>
+
+            <textarea
+                id="deck-idea"
+                name="deck_idea"
+                rows="6"
+                cols="60"
+                placeholder="Example: I want a spooky graveyard deck that steals creatures from opponents."></textarea>
+
+            <br>
+
+            <button type="submit">Generate Ideas</button>
+        </form>
+    </section>
+
+    <section>
+        <h2>Explore the app</h2>
+
+        <ul>
+            <li><a href="/cards/">Browse Cards</a></li>
+            <li><a href="#">My Decks</a></li>
+            <li><a href="#">AI Builder</a></li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Planned Features</h2>
+
+        <ul>
+            <li>Search cards from a local Scryfall database</li>
+            <li>Create and save Commander decks</li>
+            <li>Validate Commander legality</li>
+            <li>Suggest commanders from natural language prompts</li>
+            <li>Generate sample 100-card decklists</li>
+            <li>Train card role and archetype classifiers</li>
+        </ul>
+    </section>
+</main>
+{% endblock %}

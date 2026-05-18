@@ -1,0 +1,116 @@
+body {
+    margin: 0;
+    font-family: system-ui, sans-serif;
+    background: #101014;
+    color: #f3f3f3;
+}
+
+a {
+    color: #b9a7ff;
+}
+
+.navbar {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem 2rem;
+    background: #181820;
+    border-bottom: 1px solid #2a2a36;
+}
+
+.page {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+header {
+    padding: 3rem 0;
+}
+
+header h1 {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+}
+
+header p {
+    max-width: 650px;
+    color: #c7c7d1;
+    font-size: 1.15rem;
+}
+
+section {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: #181820;
+    border: 1px solid #2a2a36;
+    border-radius: 12px;
+}
+
+textarea {
+    width: 100%;
+    max-width: 700px;
+    margin-top: 0.75rem;
+    padding: 1rem;
+    background: #0f0f14;
+    color: #f3f3f3;
+    border: 1px solid #333344;
+    border-radius: 10px;
+    font: inherit;
+}
+
+button {
+    margin-top: 1rem;
+    padding: 0.75rem 1rem;
+    background: #6d5dfc;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font: inherit;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #7f70ff;
+}
+
+.printing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.5rem;
+    align-items: start;
+    margin-top: 1rem;
+}
+
+.printing-card {
+    background: #181820;
+    border: 1px solid #2a2a36;
+    border-radius: 12px;
+    padding: 1rem;
+    overflow: visible;
+}
+
+.printing-card h3 {
+    margin-top: 0;
+    font-size: 1rem;
+}
+
+.printing-image-frame {
+    width: 100%;
+    border-radius: 4.75%;
+    overflow: hidden;
+    background: transparent;
+}
+
+.printing-image-frame img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.printing-info {
+    margin-top: 0.75rem;
+}
+
+.printing-info p {
+    margin: 0.35rem 0;
+}

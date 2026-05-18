@@ -1,0 +1,64 @@
+{% extends "base.html" %} {% block content %}
+<a href="{% url 'cards:card_list' %}">← Back to card search</a>
+
+<h1>{{ card.name }}</h1>
+
+{% if card.image_url %}
+<img src="{{ card.image_url }}" alt="{{ card.name }}" />
+{% endif %}
+
+<p><strong>{{ card.type_line }}</strong></p>
+
+{% if card.mana_cost %}
+<p>Mana Cost: {{ card.mana_cost }}</p>
+{% endif %} {% if card.oracle_text %}
+<p>{{ card.oracle_text }}</p>
+{% endif %}
+
+<p>Commander legal: {{ card.commander_legal }}</p>
+
+{% if card.scryfall_uri %}
+<p>
+  <a href="{{ card.scryfall_uri }}" target="_blank"> View on Scryfall </a>
+</p>
+{% endif %}
+
+<hr />
+
+<h2>Printings / Art Versions</h2>
+<h2>Printings / Art Versions</h2>
+
+<p>{{ printings|length }} printings found.</p>
+
+<div class="printing-grid">
+  {% for printing in printings %}
+  <article class="printing-card">
+    <h3>{{ printing.name }}</h3>
+
+    {% if printing.image_url %}
+    <div class="printing-image-frame">
+      <img src="{{ printing.image_url }}" alt="{{ printing.name }}" />
+    </div>
+    {% endif %}
+
+    <div class="printing-info">
+      <p><strong>Set:</strong> {{ printing.set_code|upper }}</p>
+
+      {% if printing.released_at %}
+      <p><strong>Released:</strong> {{ printing.released_at }}</p>
+      {% endif %} {% if printing.rarity %}
+      <p><strong>Rarity:</strong> {{ printing.rarity|title }}</p>
+      {% endif %} {% if printing.prices.usd %}
+      <p><strong>USD:</strong> ${{ printing.prices.usd }}</p>
+      {% endif %} {% if printing.scryfall_uri %}
+      <p>
+        <a href="{{ printing.scryfall_uri }}" target="_blank">
+          View on Scryfall
+        </a>
+      </p>
+      {% endif %}
+    </div>
+  </article>
+  {% endfor %}
+</div>
+{% endblock %}
