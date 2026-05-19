@@ -2,6 +2,22 @@
 
 All notable changes to this project are recorded in this file.
 
+## [v0.1.1] - 2026-05-19
+
+### Added
+
+- Initial `ai_builder` Django app for natural-language Commander deck prompts.
+  - Rule-based prompt analyzer (`ai_builder/services/prompt_analyzer.py`).
+  - Card recommender and commander candidate finder (`ai_builder/services/card_recommender.py`).
+  - User-facing form, view, and template for prompt submission and results (`ai_builder/views.py`, `ai_builder/templates/ai_builder/home.html`).
+  - Route registration and navbar integration.
+
+### Notes
+
+- This is the first version of the feature; the analyzer is intentionally swappable so it can later use an AI model without changing the view.
+
+---
+
 ## [v0.1.0] - 2026-05-18
 
 ### Added
