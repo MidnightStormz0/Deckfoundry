@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     # custom apps
     'cards',
     'core',
+    'decks',
 ]
 
 MIDDLEWARE = [

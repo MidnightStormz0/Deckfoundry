@@ -157,6 +157,11 @@ ENV/
 env.bak/
 venv.bak/
 
+# Local virtual environment created in repository root
+bin/
+include/
+pyvenv.cfg
+
 # Spyder project settings
 .spyderproject
 .spyproject

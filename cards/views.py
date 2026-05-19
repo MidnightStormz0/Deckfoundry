@@ -74,7 +74,7 @@ def card_list(request):
             text_matches = (
                 Card.objects.filter(
                     Q(type_line__icontains=query)
-                    | Q(oracle_text__icontains=query),
+                    |Q(oracle_text__icontains=query),
                     oracle_id__isnull=False,
                 )
                 .order_by("name")[:100]

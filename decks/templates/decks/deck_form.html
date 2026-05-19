@@ -1,0 +1,46 @@
+{% extends "base.html" %} {% load static %} {% block content %}
+<h1>{% if deck %}Edit deck{% else %}Create deck{% endif %}</h1>
+<form method="post" id="deck-form">
+  {% csrf_token %}
+  <div class="form-row">{{ form.name.label_tag }} {{ form.name }}</div>
+  <div class="form-row">
+    {{ form.archetype.label_tag }} {{ form.archetype }}
+  </div>
+  <div class="form-row">
+    {{ form.description.label_tag }} {{ form.description }}
+  </div>
+
+  <section class="deck-picker">
+    <h2>Build your deck</h2>
+    <label for="card-search-query">Search cards</label>
+    <input
+      id="card-search-query"
+      type="search"
+      placeholder="Search card name, type, or rules text"
+      autocomplete="off"
+    />
+
+    <div id="card-search-results" class="card-search-results"></div>
+
+    <h3>Selected cards</h3>
+    <div id="selected-cards" class="selected-cards"></div>
+
+    {{ form.selected_cards_data }}
+  </section>
+
+  <button type="submit">Save deck</button>
+</form>
+
+<script src="{% static 'js/deck_picker.js' %}"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    deckPickerInit({
+      searchUrl: '{% url 'decks:card_search_json' %}',
+      resultsContainer: '#card-search-results',
+      selectedCardsContainer: '#selected-cards',
+      hiddenField: '#id_selected_cards_data',
+      initialData: {{ selected_cards|default:'[]'|safe }},
+    });
+  });
+</script>
+{% endblock %}

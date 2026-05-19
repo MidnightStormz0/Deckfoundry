@@ -1,23 +1,20 @@
 {% load static %}
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>{% block title %}Commander AI Deckbuilder{% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-</head>
-<body>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+  </head>
+  <body>
     <nav class="navbar">
-        <a href="/">Home</a>
-        <a href="/cards/">Cards</a>
-        <a href="#">Decks</a>
-        <a href="#">AI Builder</a>
+      <a href="/">Home</a>
+      <a href="/cards/">Cards</a>
+      <a href="/decks/">Decks</a>
+      <a href="#">AI Builder</a>
     </nav>
 
-    <div class="page">
-        {% block content %}
-        {% endblock %}
-    </div>
-</body>
+    <div class="page">{% block content %} {% endblock %}</div>
+  </body>
 </html>

@@ -1,0 +1,74 @@
+{% extends "base.html" %} {% block content %}
+<h1>My Decks</h1>
+<p><a href="{% url 'decks:deck_create' %}">Create a new deck</a></p>
+
+<section>
+  <h2>Deck overview</h2>
+  <div class="stat-grid">
+    <div class="stat-card">
+      <p class="stat-value">{{ deck_count }}</p>
+      <p>Total decks</p>
+    </div>
+    <div class="stat-card">
+      <p class="stat-value">{{ total_deck_cards }}</p>
+      <p>Total deck cards</p>
+    </div>
+  </div>
+
+  <div class="chart-panel">
+    <h3>Decks by archetype</h3>
+    {% for item in archetype_chart %}
+    <div class="chart-row">
+      <span>{{ item.label }}</span>
+      <div class="stat-bar">
+        <div class="stat-bar-fill" style="width: {{ item.pct }}%;"></div>
+      </div>
+      <span>{{ item.count }}</span>
+    </div>
+    {% empty %}
+    <p>No archetypes yet. Create your first deck.</p>
+    {% endfor %}
+  </div>
+
+  <div class="chart-panel">
+    <h3>Decks by color combination</h3>
+    {% for item in color_chart %}
+    <div class="chart-row">
+      <span>{{ item.label }}</span>
+      <div class="stat-bar">
+        <div class="stat-bar-fill" style="width: {{ item.pct }}%;"></div>
+      </div>
+      <span>{{ item.count }}</span>
+    </div>
+    {% empty %}
+    <p>No deck color analysis available yet.</p>
+    {% endfor %}
+  </div>
+</section>
+
+<section>
+  <h2>Deck list</h2>
+  <div class="deck-table">
+    {% for deck in decks %}
+    <article class="deck-card deck-preview-card">
+      {% with preview=deck.cards.all|first %}
+      <a href="{% url 'decks:deck_detail' deck.id %}">
+        <div class="card-image-frame deck-preview-frame">
+          {% if preview and preview.card.image_url %}
+          <img
+            src="{{ preview.card.image_url }}"
+            alt="{{ preview.card.name }}"
+          />
+          {% else %}
+          <div class="deck-preview-placeholder"></div>
+          {% endif %}
+        </div>
+      </a>
+      {% endwith %}
+    </article>
+    {% empty %}
+    <p>No decks found. Start by creating one.</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

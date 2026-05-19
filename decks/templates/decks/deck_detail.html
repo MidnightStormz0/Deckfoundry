@@ -1,0 +1,39 @@
+{% extends "base.html" %} {% block content %}
+<a href="{% url 'decks:deck_list' %}">← Back to decks</a>
+
+<h1>{{ deck.name }}</h1>
+<p><strong>Archetype:</strong> {{ deck.archetype|default:'Unspecified' }}</p>
+<p>{{ deck.description|linebreaks }}</p>
+<p><strong>Updated:</strong> {{ deck.updated_at }}</p>
+<p><strong>Total cards:</strong> {{ deck.total_cards }}</p>
+<p><a href="{% url 'decks:deck_edit' deck.id %}">Edit this deck</a></p>
+
+<section>
+  <h2>Decklist</h2>
+  <ul class="deck-card-list">
+    {% for item in cards %}
+    <li class="deck-detail-card">
+      <a
+        class="deck-detail-card-image-link"
+        href="{% url 'cards:card_detail' item.card.oracle_id %}"
+      >
+        {% if item.card.image_url %}
+        <img src="{{ item.card.image_url }}" alt="{{ item.card.name }}" />
+        {% else %}
+        <div class="deck-detail-card-missing">No art</div>
+        {% endif %}
+      </a>
+      <div class="deck-detail-card-info">
+        <strong>{{ item.quantity }}×</strong>
+        <a href="{% url 'cards:card_detail' item.card.oracle_id %}"
+          >{{ item.card.name }}</a
+        >
+        <p class="card-type">{{ item.card.type_line }}</p>
+      </div>
+    </li>
+    {% empty %}
+    <p>No cards have been added to this deck yet.</p>
+    {% endfor %}
+  </ul>
+</section>
+{% endblock %}
