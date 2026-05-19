@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'cards',
     'core',
     'decks',
+    'ai_builder',
 ]
 
 MIDDLEWARE = [

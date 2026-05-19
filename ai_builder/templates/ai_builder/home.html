@@ -1,0 +1,129 @@
+{% extends 'base.html' %} {% block title %}AI Deck Builder{% endblock %} {%
+block content %}
+<h1>Commander Deck Idea Analyzer</h1>
+
+<form method="post">
+  {% csrf_token %}
+  <div>
+    <label for="prompt">Describe your deck idea:</label><br />
+    <textarea id="prompt" name="prompt" rows="5" cols="80">
+{{ prompt }}</textarea
+    >
+  </div>
+  <div><button type="submit">Analyze</button></div>
+</form>
+
+{% if prompt %}
+<h2>Your prompt</h2>
+<p>{{ prompt }}</p>
+
+<h3>Detected Themes</h3>
+{% if analysis.themes %}
+<ul>
+  {% for t in analysis.themes %}
+  <li>{{ t }}</li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>No themes detected.</p>
+{% endif %}
+
+<h3>Detected Colors</h3>
+{% if analysis.colors %}
+<ul>
+  {% for c in analysis.colors %}
+  <li>{{ c }}</li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>No specific colors detected.</p>
+{% endif %} {% if analysis.budget %}
+<h3>Budget</h3>
+<p>{{ analysis.budget }}</p>
+{% endif %} {% if analysis.power_level %}
+<h3>Power Level</h3>
+<p>{{ analysis.power_level }}</p>
+{% endif %}
+
+<h3>Search Terms</h3>
+{% if analysis.search_terms %}
+<ul>
+  {% for s in analysis.search_terms %}
+  <li>{{ s }}</li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>No search terms generated.</p>
+{% endif %}
+
+<h3>Suggested Commanders</h3>
+{% if commanders %}
+<div class="printing-grid">
+  {% for card in commanders %}
+  <div class="printing-card">
+    <div class="printing-image-frame">
+      {% if card.image_url %} {% if card.oracle_id %}
+      <a href="{% url 'cards:card_detail' card.oracle_id %}">
+        <img src="{{ card.image_url }}" alt="{{ card.name }}" />
+      </a>
+      {% else %}
+      <img src="{{ card.image_url }}" alt="{{ card.name }}" />
+      {% endif %} {% else %}
+      <div class="no-image">No image</div>
+      {% endif %}
+    </div>
+    <div class="printing-meta">
+      <h5>
+        {% if card.oracle_id %}
+        <a href="{% url 'cards:card_detail' card.oracle_id %}"
+          >{{ card.name }}</a
+        >
+        {% else %} {{ card.name }} {% endif %}
+      </h5>
+      <div class="type-line">{{ card.type_line }}</div>
+      <p class="oracle-text">{{ card.oracle_text|truncatechars:220 }}</p>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<p>No commander suggestions.</p>
+{% endif %}
+
+<h3>Suggested Cards</h3>
+{% if results %} {% for term, cards in results.items %}
+<h4>Results for: {{ term }}</h4>
+{% if cards %}
+<div class="printing-grid">
+  {% for card in cards %}
+  <div class="printing-card">
+    <div class="printing-image-frame">
+      {% if card.image_url %} {% if card.oracle_id %}
+      <a href="{% url 'cards:card_detail' card.oracle_id %}">
+        <img src="{{ card.image_url }}" alt="{{ card.name }}" />
+      </a>
+      {% else %}
+      <img src="{{ card.image_url }}" alt="{{ card.name }}" />
+      {% endif %} {% else %}
+      <div class="no-image">No image</div>
+      {% endif %}
+    </div>
+    <div class="printing-meta">
+      <h5>
+        {% if card.oracle_id %}
+        <a href="{% url 'cards:card_detail' card.oracle_id %}"
+          >{{ card.name }}</a
+        >
+        {% else %} {{ card.name }} {% endif %}
+      </h5>
+      <div class="type-line">{{ card.type_line }}</div>
+      <p class="oracle-text">{{ card.oracle_text|truncatechars:220 }}</p>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<p>No cards found for this term.</p>
+{% endif %} {% endfor %} {% else %}
+<p>No card suggestions yet.</p>
+{% endif %} {% endif %} {% endblock %}
